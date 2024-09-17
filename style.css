@@ -92,7 +92,7 @@ section.section-anime {
 .anime-list {
     border-top: 2px solid var(--blackColor);
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 2fr));
+    grid-template-columns: repeat(auto-fit, minmax(250px, 2fr));
     height: auto;
     justify-items: center;
     align-items: center;
@@ -114,8 +114,8 @@ section.section-anime {
 .img-anime {
     border-radius: 8px;
     transition: .3s;
-    /* height: 100%; */
-    width: 250px;
+    /* height: 100%; 
+    width: 250px; */
     height: 400px;
     object-fit: cover;
 }

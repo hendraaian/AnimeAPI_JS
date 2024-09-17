@@ -4,10 +4,10 @@ const searchInput = document.querySelector('input[name="value"]');
 
 async function fetchAnimeData(query = '') {
     try {
-        const url = query
-            ? `https://api.jikan.moe/v4/anime?q=${query}&limit=20`
-            : 'https://api.jikan.moe/v4/top/anime?limit=20';
-        
+        const url = query ?
+            `https://api.jikan.moe/v4/anime?q=${query}&limit=20` :
+            'https://api.jikan.moe/v4/top/anime?limit=20';
+
         const response = await axios.get(url);
         const animeList = response.data.data;
 
@@ -29,11 +29,11 @@ async function fetchAnimeData(query = '') {
             animeTitle.textContent = anime.title;
 
             const animeGenres = document.createElement('p');
-            anime.genres.forEach(genre => {
-                const genreSpan = document.createElement('span');
-                genreSpan.textContent = genre.name;
-                animeGenres.appendChild(genreSpan);
-            });
+            const genreNames = anime.genres.map(genre => genre.name).join(', ');
+
+            const genreSpan = document.createElement('span');
+            genreSpan.textContent = genreNames;
+            animeGenres.appendChild(genreSpan);
 
             const episodeCount = document.createElement('p');
             episodeCount.textContent = `Episode ${anime.episodes || 'N/A'}`;
@@ -41,7 +41,7 @@ async function fetchAnimeData(query = '') {
             const onGoing = document.createElement('div');
             onGoing.classList.add('on-going');
             const day = document.createElement('p');
-            day.textContent = anime.airing ? 'On Air' : 'Finished'; 
+            day.textContent = anime.airing ? 'On Air' : 'Finished';
             onGoing.appendChild(day);
 
             const starIcon = document.createElement('span');
@@ -67,7 +67,7 @@ async function fetchAnimeData(query = '') {
 
 fetchAnimeData();
 
-searchForm.addEventListener('submit', async function(event) {
+searchForm.addEventListener('submit', async function (event) {
     event.preventDefault();
     const query = searchInput.value.trim();
     if (query) {
@@ -81,9 +81,9 @@ searchForm.addEventListener('submit', async function(event) {
 async function fetchGenres() {
     try {
         const response = await axios.get('https://api.jikan.moe/v4/genres/anime');
-        const genreList = response.data.data; 
+        const genreList = response.data.data;
         const genreContainer = document.querySelector('.genre-list');
-        genreContainer.innerHTML = ''; 
+        genreContainer.innerHTML = '';
 
         genreList.forEach(genre => {
             const genreItem = document.createElement('a');
